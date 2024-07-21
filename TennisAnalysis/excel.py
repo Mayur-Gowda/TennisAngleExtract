@@ -138,6 +138,10 @@ class ExcelSave:
     def checkFile(self):
         """Check if the Excel file is available. If not, it creates a new one."""
 
+        directory = os.path.dirname(self.fileName)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         try:
             self.workbook = load_workbook(self.fileName)
         except FileNotFoundError:

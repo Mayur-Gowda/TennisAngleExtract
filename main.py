@@ -6,10 +6,14 @@ import os
 import cv2
 import TennisAnalysis as Ta
 import mediapipe as mp
+import warnings
+
+warnings.filterwarnings('ignore', category=UserWarning, module='google.protobuf.symbol_database')
 
 
-input_folder = "Pocs/SwiatekPocs"
-output_folder = f"CroppedImages/Cropped{input_folder[5:]}"
+input_folder = "Tennis Dataset/Serve Dataset/Swiatek-R"
+output_folder = f"CroppedImages/{input_folder[15:]}"
+
 
 side = input("The player is which handed?").lower()
 
@@ -24,7 +28,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 image_files = sorted(os.listdir(output_folder))
 
-angFunc = Ta.Angle(filename=f"{input_folder[5:]}", side=side)
+angFunc = Ta.Angle(filename=f"{input_folder[15:]}", side=side)
 
 for image_file in image_files:
     # Check if the file is an image (assuming all files in the folder are images)
@@ -63,6 +67,7 @@ for image_file in image_files:
 
         try:
             angFunc.calculate(posList)
+            angFunc.save_values(image_file)
             # angFunc.values()
             # angFunc.saveToExcel(image_file)
             # plt = angFunc.createPlot()
@@ -76,11 +81,11 @@ for image_file in image_files:
         imS = cv2.resize(img_rgb, (0, 0), fx=0.4, fy=0.4)
 
         cv2.imshow("Image", imS)
-        key = cv2.waitKey(0)
-        if key == ord('q'):
-            continue
-        elif key == ord('s'):
-            angFunc.save_values(image_file)
+        key = cv2.waitKey(1)
+        # if key == ord('q'):
+        #     continue
+        # elif key == ord('s'):
+        #     angFunc.save_values(image_file)
 
 angFunc.save_files()
 

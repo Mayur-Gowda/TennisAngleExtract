@@ -9,7 +9,7 @@ class ROI:
     def __init__(self, input_folder):
         self.input_folder = input_folder
         self.renameFiles()
-        self.output_folder = os.path.join(os.path.dirname(__file__), '../CroppedImages', f"Cropped{input_folder[5:]}")
+        self.output_folder = os.path.join(os.path.dirname(__file__), '../CroppedImages', f"Cropped{input_folder[15:]}")
         self.createDir()
         self.classes, self.net = self.loadYOLO()
         self.processImages()
