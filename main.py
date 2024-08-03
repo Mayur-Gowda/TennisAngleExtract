@@ -15,7 +15,7 @@ input_folder = "Tennis Dataset/Serve Dataset/Swiatek-R"
 output_folder = f"CroppedImages/{input_folder[15:]}"
 
 
-side = input("The player is which handed?").lower()
+side = "right" if input_folder[-1].lower() == "r" else "left"
 
 if input("Would you like to pre-process the images? Y/N: \n").lower() == 'y':
     roi = Ta.ROI(input_folder)
